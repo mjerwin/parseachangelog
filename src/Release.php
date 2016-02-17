@@ -36,4 +36,9 @@ class Release
     {
         return $this->version;
     }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
 }
