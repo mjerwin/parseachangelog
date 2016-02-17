@@ -23,7 +23,7 @@ class Release
 
         $heading_line = isset($this->content[0]) ? $this->content[0] : null;
 
-        if($heading_line)
+        if ($heading_line)
         {
             preg_match('/^## (\[?)(?<version>[^\s\[\]#]*)(\]?)( - (?<date>[0-9]{4}-[0-9]{2}-[0-9]{2}))?$/', $heading_line, $matches);
 
@@ -40,5 +40,28 @@ class Release
     public function getDate()
     {
         return $this->date;
+    }
+
+    public function getAdded()
+    {
+        $messages = [];
+
+        $start = key(preg_grep('/### Added/', $this->content)) + 1;
+
+        $remaining = array_slice($this->content, $start);
+
+        foreach($remaining as $line)
+        {
+            if (preg_match('/^[\-\*](\s?)(?<message>.*)/', $line, $matches))
+            {
+                $messages[] = $matches['message'];
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return $messages;
     }
 }
