@@ -25,7 +25,7 @@ class Reader
     {
         if (empty($this->releases))
         {
-            $headings = preg_grep('/^## ([^#]*)( - [0-9]{4}-[0-9]{2}-[0-9]{2})?$/', $this->content);
+            $headings = preg_grep('/^## (\[?)([^\s\[\]#]*)(\]?)( - ([0-9]{4}-[0-9]{2}-[0-9]{2}))?$/', $this->content);
 
             while($current_heading = current($headings))
             {
@@ -35,10 +35,18 @@ class Reader
 
                 $release_content = array_slice($this->content, $start, $end);
 
-                $this->releases[] = new Release($release_content);
+                $release = new Release($release_content);
+                $this->releases[$release->getVersion()] = new Release($release_content);
             }
         }
 
         return $this->releases;
+    }
+
+    public function getRelease($version)
+    {
+        $releases = $this->getReleases();
+
+        return isset($releases[$version]) ? $releases[$version] : null;
     }
 }
