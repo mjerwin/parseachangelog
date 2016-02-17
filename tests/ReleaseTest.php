@@ -27,4 +27,19 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('2015-12-03', $release->getDate());
     }
+
+    public function testAdded()
+    {
+        $data = file(__DIR__ . '/data/release_content_1.md');
+
+        $release = new Release($data);
+
+        $expected = [
+            'RU translation from @aishek.',
+            'pt-BR translation from @tallesl.',
+            'es-ES translation from @ZeliosAriex.',
+        ];
+
+        $this->assertEquals($expected, $release->getAdded());
+    }
 }
