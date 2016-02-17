@@ -2,7 +2,6 @@
 
 namespace MJErwin\ParseAChangelog\Tests;
 
-use MJErwin\ParseAChangelog\Reader;
 use MJErwin\ParseAChangelog\Release;
 
 /**
@@ -18,5 +17,14 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
         $release = new Release($data);
 
         $this->assertEquals('0.3.0', $release->getVersion());
+    }
+
+    public function testReleaseDate()
+    {
+        $data = file(__DIR__ . '/data/release_content_1.md');
+
+        $release = new Release($data);
+
+        $this->assertEquals('2015-12-03', $release->getDate());
     }
 }
