@@ -42,11 +42,11 @@ class Release
         return $this->date;
     }
 
-    public function getAdded()
+    private function getMessageByType($type)
     {
         $messages = [];
 
-        $start = key(preg_grep('/### Added/', $this->content)) + 1;
+        $start = key(preg_grep(sprintf('/### %s/', $type), $this->content)) + 1;
 
         $remaining = array_slice($this->content, $start);
 
@@ -63,5 +63,10 @@ class Release
         }
 
         return $messages;
+    }
+
+    public function getAdded()
+    {
+        return $this->getMessageByType('Added');
     }
 }
