@@ -12,7 +12,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 {
     public function testReleaseCount()
     {
-        $changelog = new Reader('data/changelog_1.md');
+        $changelog = new Reader(__DIR__ . '/data/changelog_1.md');
         $releases = $changelog->getReleases();
 
         $this->assertEquals(12, sizeof($releases));
