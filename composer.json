@@ -1,0 +1,21 @@
+{
+  "name": "mjerwin/parseachangelog",
+  "description": "Change log parser based on http://keepachangelog.com/",
+  "type": "library",
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "5.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MJErwin\\ParseAChangelog\\": "src/",
+      "MJErwin\\ParseAChangelog\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Matthew Erwin",
+      "email": "m@tthewerwin.com"
+    }
+  ]
+}
