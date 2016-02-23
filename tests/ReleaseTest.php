@@ -65,7 +65,7 @@ notable changes.',
 
         $release = new Release($data);
 
-        $expected = '{"version":"0.0.4","date":"2014-08-09","added":["Better explanation of the difference between the file (\"CHANGELOG\")\nand its function \"the change log\"."],"changed":["Refer to a \"change log\" instead of a \"CHANGELOG\" throughout the site\nto differentiate between the file and the purpose of the file \u2014 the\nlogging of changes."],"removed":["Remove empty sections from CHANGELOG, they occupy too much space and\ncreate too much noise in the file. People will have to assume that the\nmissing sections were intentionally left out because they contained no\nnotable changes."]}';
+        $expected = '{"version":"0.0.4","date":"2014-08-09","added":["Better explanation of the difference between the file (\"CHANGELOG\")\nand its function \"the change log\"."],"changed":["Refer to a \"change log\" instead of a \"CHANGELOG\" throughout the site\nto differentiate between the file and the purpose of the file \u2014 the\nlogging of changes."],"deprecated":[],"removed":["Remove empty sections from CHANGELOG, they occupy too much space and\ncreate too much noise in the file. People will have to assume that the\nmissing sections were intentionally left out because they contained no\nnotable changes."],"fixed":[],"security":[]}';
 
         $this->assertEquals($expected, $release->toJson());
     }

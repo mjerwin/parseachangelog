@@ -70,37 +70,67 @@ class Release
     {
         $messages = [];
 
-        $start = key(preg_grep(sprintf('/^### %s/', $type), $this->content)) + 1;
-        $remaining = array_slice($this->content, $start);
-        $end = key(preg_grep(sprintf('/^##/', $type), $remaining));
+        $matches = preg_grep(sprintf('/^### %s/', $type), $this->content);
 
-        if ($end)
+        if(!empty($matches))
         {
-            $end += $start;
-        }
-        else
-        {
-            $end = sizeof($this->content);
-        }
+            $start = key($matches) + 1;
+            $remaining = array_slice($this->content, $start);
+            $end = key(preg_grep(sprintf('/^##/', $type), $remaining));
 
-        $lines = array_splice($this->content, $start, $end - $start);
-
-        foreach($lines as $line)
-        {
-            if (preg_match('/^[\-](\s?)(?<message>.*)/', $line, $matches))
+            if ($end)
             {
-                $messages[] = $matches['message'];
+                $end += $start;
             }
             else
             {
-                // Handle multi-line messages
-                end($messages);
-                $previous_message_index = key($messages);
-                $messages[$previous_message_index] .= "\n" . $line;
+                $end = sizeof($this->content);
+            }
+
+            $lines = array_splice($this->content, $start, $end - $start);
+
+            foreach($lines as $line)
+            {
+                if (preg_match('/^[\-](\s?)(?<message>.*)/', $line, $matches))
+                {
+                    $messages[] = $matches['message'];
+                }
+                else
+                {
+                    // Handle multi-line messages
+                    end($messages);
+                    $previous_message_index = key($messages);
+                    if (isset($messages[$previous_message_index]))
+                    {
+                        $messages[$previous_message_index] .= "\n" . $line;
+                    }
+                }
             }
         }
 
         return $messages;
+    }
+
+    public function toArray()
+    {
+        $data = [
+            'version' => $this->getVersion(),
+            'date' => $this->getDate(),
+        ];
+
+        foreach($this->getMessageTypes() as $type)
+        {
+            $data[strtolower($type)] = $this->getMessageByType($type);
+        }
+
+        return $data;
+    }
+
+    public function toJson()
+    {
+        $data = $this->toArray();
+
+        return json_encode($data);
     }
 
     private function getMessageTypes()
