@@ -102,6 +102,7 @@ notable changes.',
         return [
             ['release_content_1'],
             ['release_content_2'],
+            ['release_content_hlibsass_0.1.2.0'],
         ];
     }
 

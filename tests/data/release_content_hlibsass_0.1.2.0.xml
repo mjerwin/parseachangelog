@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<changelog version="0.1.2.0" date="2015-06-01"><added><message>Bindings to `sass_string_is_quoted`, `sass_string_set_quoted` and
+  `sass_make_qstring`.</message></added><changed><message>libsass @ 3672661 is used.</message></changed><deprecated/><removed/><fixed><message>Link to compare in this changelog.</message></fixed><security/></changelog>
+

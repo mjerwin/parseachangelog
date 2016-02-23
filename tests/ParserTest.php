@@ -52,6 +52,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['changelog_1', 12],
+            ['changelog_hlibsass', 8],
         ];
     }
 
@@ -59,6 +60,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['changelog_1', '0.0.8'],
+            ['changelog_hlibsass', '0.1.1.1'],
         ];
     }
 
