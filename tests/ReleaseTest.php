@@ -70,6 +70,17 @@ notable changes.',
         $this->assertEquals($expected, $release->toJson());
     }
 
+    public function testHtml()
+    {
+        $data = $this->loadContent('release_content_2.md');
+
+        $release = new Release($data);
+
+        $expected = file_get_contents(__DIR__ . '/data/release_content_2.html');
+
+        $this->assertEquals($expected, $release->toHtml());
+    }
+
     public function loadContent($filename)
     {
         return file(__DIR__ . '/data/' . $filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
