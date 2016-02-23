@@ -100,12 +100,13 @@ notable changes.',
     public function providerFiles()
     {
         return [
+            ['release_content_1'],
             ['release_content_2'],
         ];
     }
 
     public function loadContent($filename)
     {
-        return file(__DIR__ . '/data/' . $filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        return file(__DIR__ . '/data/' . $filename, FILE_IGNORE_NEW_LINES);
     }
 }

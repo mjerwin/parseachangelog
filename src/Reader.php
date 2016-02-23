@@ -18,7 +18,7 @@ class Reader
      */
     public function __construct($filename)
     {
-        $this->content = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $this->content = file($filename, FILE_IGNORE_NEW_LINES);
     }
 
     /**

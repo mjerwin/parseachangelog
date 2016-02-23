@@ -119,7 +119,7 @@ class Release
                     // Handle multi-line messages
                     end($messages);
                     $previous_message_index = key($messages);
-                    if (isset($messages[$previous_message_index]))
+                    if (isset($messages[$previous_message_index]) && $line)
                     {
                         $messages[$previous_message_index] .= "\n" . $line;
                     }
