@@ -67,7 +67,7 @@ notable changes.',
 
         $expected = '{"version":"0.0.4","date":"2014-08-09","added":["Better explanation of the difference between the file (\"CHANGELOG\")\nand its function \"the change log\"."],"changed":["Refer to a \"change log\" instead of a \"CHANGELOG\" throughout the site\nto differentiate between the file and the purpose of the file \u2014 the\nlogging of changes."],"deprecated":[],"removed":["Remove empty sections from CHANGELOG, they occupy too much space and\ncreate too much noise in the file. People will have to assume that the\nmissing sections were intentionally left out because they contained no\nnotable changes."],"fixed":[],"security":[]}';
 
-        $this->assertEquals($expected, $release->toJson());
+        $this->assertJsonStringEqualsJsonString($expected, $release->toJson());
     }
 
     public function testHtml()
@@ -87,9 +87,7 @@ notable changes.',
 
         $release = new Release($data);
 
-        $expected = file_get_contents(__DIR__ . '/data/release_content_2.xml');
-
-        $this->assertEquals($expected, $release->toXml());
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/data/release_content_2.xml', $release->toXml());
     }
 
     public function loadContent($filename)

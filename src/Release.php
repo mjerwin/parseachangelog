@@ -144,6 +144,35 @@ class Release
         return $md_parser->text($content_string);
     }
 
+    public function toXml()
+    {
+        $doc = new \DOMDocument('1.0', 'UTF-8');
+
+        $changelog_elem = $doc->createElement('changelog');
+
+        $changelog_elem->setAttribute('version', $this->getVersion());
+        $changelog_elem->setAttribute('date', $this->getDate());
+
+        foreach($this->getMessageTypes() as $type)
+        {
+            $type_elem = $doc->createElement(strtolower($type));
+
+            $messages = $this->getMessageByType($type);
+
+            foreach($messages as $message)
+            {
+                $message_elem = $doc->createElement('message', $message);
+                $type_elem->appendChild($message_elem);
+            }
+
+            $changelog_elem->appendChild($type_elem);
+        }
+
+        $doc->appendChild($changelog_elem);
+
+        return $doc->saveXML();
+    }
+
     private function getMessageTypes()
     {
         return [
