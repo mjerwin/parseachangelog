@@ -25,4 +25,26 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('0.0.8', $release->getVersion());
     }
+
+    public function testGetVersions()
+    {
+        $changelog = new Reader(__DIR__ . '/data/changelog_1.md');
+
+        $expected = [
+            'Unreleased',
+            '0.3.0',
+            '0.2.0',
+            '0.1.0',
+            '0.0.8',
+            '0.0.7',
+            '0.0.6',
+            '0.0.5',
+            '0.0.4',
+            '0.0.3',
+            '0.0.2',
+            '0.0.1',
+        ];
+
+        $this->assertEquals($expected, $changelog->getVersions());
+    }
 }
