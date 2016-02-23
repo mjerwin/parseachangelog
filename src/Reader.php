@@ -21,6 +21,9 @@ class Reader
         $this->content = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 
+    /**
+     * @return Release[]
+     */
     public function getReleases()
     {
         if (empty($this->releases))
@@ -43,6 +46,11 @@ class Reader
         return $this->releases;
     }
 
+    /**
+     * @param $version
+     *
+     * @return Release|null
+     */
     public function getRelease($version)
     {
         $releases = $this->getReleases();
@@ -50,6 +58,9 @@ class Reader
         return isset($releases[$version]) ? $releases[$version] : null;
     }
 
+    /**
+     * @return array
+     */
     public function getVersions()
     {
         $versions = [];

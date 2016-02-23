@@ -42,6 +42,12 @@ class Release
         }
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return mixed
+     */
     function __call($name, $arguments)
     {
         if (substr($name, 0, 3) == 'get')
@@ -58,16 +64,27 @@ class Release
         trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return $this->version;
     }
 
+    /**
+     * @return string
+     */
     public function getDate()
     {
         return $this->date;
     }
 
+    /**
+     * @param $type
+     *
+     * @return array
+     */
     private function getMessageByType($type)
     {
         $messages = [];
@@ -113,6 +130,9 @@ class Release
         return $messages;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $data = [
@@ -128,6 +148,9 @@ class Release
         return $data;
     }
 
+    /**
+     * @return string
+     */
     public function toJson()
     {
         $data = $this->toArray();
@@ -135,6 +158,9 @@ class Release
         return json_encode($data);
     }
 
+    /**
+     * @return string
+     */
     public function toHtml()
     {
         $content_string = implode("\n", $this->content);
@@ -144,6 +170,9 @@ class Release
         return $md_parser->text($content_string);
     }
 
+    /**
+     * @return string
+     */
     public function toXml()
     {
         $doc = new \DOMDocument('1.0', 'UTF-8');
@@ -173,6 +202,9 @@ class Release
         return $doc->saveXML();
     }
 
+    /**
+     * @return array
+     */
     private function getMessageTypes()
     {
         return [
