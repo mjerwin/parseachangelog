@@ -18,7 +18,7 @@ class Reader
      */
     public function __construct($filename)
     {
-        $this->content = file($filename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
+        $this->content = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 
     public function getReleases()
@@ -48,5 +48,24 @@ class Reader
         $releases = $this->getReleases();
 
         return isset($releases[$version]) ? $releases[$version] : null;
+    }
+
+    public function getVersions()
+    {
+        $versions = [];
+
+        $headings = preg_grep('/^## (\[?)([^\s\[\]#]*)(\]?)( - ([0-9]{4}-[0-9]{2}-[0-9]{2}))?$/', $this->content);
+
+        foreach($headings as $heading)
+        {
+            preg_match('/^## (\[?)(?<version>[^\s\[\]#]*)(\]?)/', $heading, $matches);
+
+            if(isset($matches['version']))
+            {
+                $versions[] = $matches['version'];
+            }
+        }
+
+        return $versions;
     }
 }
