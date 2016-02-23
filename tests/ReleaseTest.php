@@ -12,7 +12,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testReleaseVersion()
     {
-        $data = file(__DIR__ . '/data/release_content_1.md');
+        $data = $this->loadContent('release_content_1.md');
 
         $release = new Release($data);
 
@@ -21,7 +21,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
     public function testReleaseDate()
     {
-        $data = file(__DIR__ . '/data/release_content_1.md');
+        $data = $this->loadContent('release_content_1.md');
 
         $release = new Release($data);
 
@@ -30,7 +30,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
     public function testAdded()
     {
-        $data = file(__DIR__ . '/data/release_content_1.md');
+        $data = $this->loadContent('release_content_1.md');
 
         $release = new Release($data);
 
@@ -41,5 +41,26 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->assertEquals($expected, $release->getAdded());
+    }
+
+    public function testRemoved()
+    {
+        $data = $this->loadContent('release_content_2.md');
+
+        $release = new Release($data);
+
+        $expected = [
+            'Remove empty sections from CHANGELOG, they occupy too much space and
+create too much noise in the file. People will have to assume that the
+missing sections were intentionally left out because they contained no
+notable changes.',
+        ];
+
+        $this->assertEquals($expected, $release->getRemoved());
+    }
+
+    public function loadContent($filename)
+    {
+        return file(__DIR__ . '/data/' . $filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 }

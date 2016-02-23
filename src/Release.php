@@ -5,6 +5,14 @@ namespace MJErwin\ParseAChangelog;
 /**
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
+ *
+ * @method getAdded()
+ * @method getChanged()
+ * @method getDeprecated()
+ * @method getRemoved()
+ * @method getFixed()
+ * @method getSecurity()
+ *
  */
 class Release
 {
@@ -32,6 +40,22 @@ class Release
         }
     }
 
+    function __call($name, $arguments)
+    {
+        if (substr($name, 0, 3) == 'get')
+        {
+            $requested = substr($name, 3);
+
+            if (in_array($requested, $this->getMessageTypes()))
+            {
+                return call_user_func_array([$this, 'getMessageByType'], array_merge([$requested], $arguments));
+            }
+        }
+
+        // Nothing found default to error
+        trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+    }
+
     public function getVersion()
     {
         return $this->version;
@@ -46,27 +70,48 @@ class Release
     {
         $messages = [];
 
-        $start = key(preg_grep(sprintf('/### %s/', $type), $this->content)) + 1;
-
+        $start = key(preg_grep(sprintf('/^### %s/', $type), $this->content)) + 1;
         $remaining = array_slice($this->content, $start);
+        $end = key(preg_grep(sprintf('/^##/', $type), $remaining));
 
-        foreach($remaining as $line)
+        if ($end)
         {
-            if (preg_match('/^[\-\*](\s?)(?<message>.*)/', $line, $matches))
+            $end += $start;
+        }
+        else
+        {
+            $end = sizeof($this->content);
+        }
+
+        $lines = array_splice($this->content, $start, $end - $start);
+
+        foreach($lines as $line)
+        {
+            if (preg_match('/^[\-](\s?)(?<message>.*)/', $line, $matches))
             {
                 $messages[] = $matches['message'];
             }
             else
             {
-                break;
+                // Handle multi-line messages
+                end($messages);
+                $previous_message_index = key($messages);
+                $messages[$previous_message_index] .= "\n" . $line;
             }
         }
 
         return $messages;
     }
 
-    public function getAdded()
+    private function getMessageTypes()
     {
-        return $this->getMessageByType('Added');
+        return [
+            'Added',
+            'Changed',
+            'Deprecated',
+            'Removed',
+            'Fixed',
+            'Security',
+        ];
     }
 }
