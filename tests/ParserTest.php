@@ -10,20 +10,32 @@ use MJErwin\ParseAChangelog\Reader;
  */
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testReleaseCount()
+    /**
+     * @param $filename
+     * @param $release_count
+     *
+     * @dataProvider providerReleaseCount
+     */
+    public function testReleaseCount($filename, $release_count)
     {
-        $changelog = new Reader(__DIR__ . '/data/changelog_1.md');
+        $changelog = new Reader(__DIR__ . '/data/' . $filename . '.md');
         $releases = $changelog->getReleases();
 
-        $this->assertEquals(12, sizeof($releases));
+        $this->assertEquals($release_count, sizeof($releases));
     }
 
-    public function testGetRelease()
+    /**
+     * @param $filename
+     * @param $version
+     *
+     * @dataProvider providerRelease
+     */
+    public function testGetRelease($filename, $version)
     {
-        $changelog = new Reader(__DIR__ . '/data/changelog_1.md');
-        $release = $changelog->getRelease('0.0.8');
+        $changelog = new Reader(__DIR__ . '/data/' . $filename . '.md');
+        $release = $changelog->getRelease($version);
 
-        $this->assertEquals('0.0.8', $release->getVersion());
+        $this->assertEquals($version, $release->getVersion());
     }
 
     /**
@@ -34,6 +46,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $changelog = new Reader(__DIR__ . '/data/' . $filename . '.md');
 
         $this->assertEquals($versions, $changelog->getVersions());
+    }
+
+    public function providerReleaseCount()
+    {
+        return [
+            ['changelog_1', 12],
+        ];
+    }
+
+    public function providerRelease()
+    {
+        return [
+            ['changelog_1', '0.0.8'],
+        ];
     }
 
     public function providerVersions()
