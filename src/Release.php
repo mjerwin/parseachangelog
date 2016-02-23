@@ -2,6 +2,8 @@
 
 namespace MJErwin\ParseAChangelog;
 
+use Parsedown;
+
 /**
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
@@ -72,7 +74,7 @@ class Release
 
         $matches = preg_grep(sprintf('/^### %s/', $type), $this->content);
 
-        if(!empty($matches))
+        if (!empty($matches))
         {
             $start = key($matches) + 1;
             $remaining = array_slice($this->content, $start);
@@ -131,6 +133,15 @@ class Release
         $data = $this->toArray();
 
         return json_encode($data);
+    }
+
+    public function toHtml()
+    {
+        $content_string = implode("\n", $this->content);
+
+        $md_parser = new Parsedown();
+
+        return $md_parser->text($content_string);
     }
 
     private function getMessageTypes()
