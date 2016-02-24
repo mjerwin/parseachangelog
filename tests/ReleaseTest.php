@@ -12,7 +12,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testReleaseVersion()
     {
-        $data = $this->loadContent('release_content_1.md');
+        $data = $this->loadContent('release_content_keepachangelog_0.3.0.md');
 
         $release = new Release($data);
 
@@ -21,7 +21,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
     public function testReleaseDate()
     {
-        $data = $this->loadContent('release_content_1.md');
+        $data = $this->loadContent('release_content_keepachangelog_0.3.0.md');
 
         $release = new Release($data);
 
@@ -30,7 +30,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
     public function testAdded()
     {
-        $data = $this->loadContent('release_content_1.md');
+        $data = $this->loadContent('release_content_keepachangelog_0.3.0.md');
 
         $release = new Release($data);
 
@@ -45,7 +45,7 @@ class ReleaseTest extends \PHPUnit_Framework_TestCase
 
     public function testRemoved()
     {
-        $data = $this->loadContent('release_content_2.md');
+        $data = $this->loadContent('release_content_keepachangelog_0.0.4.md');
 
         $release = new Release($data);
 
@@ -100,8 +100,8 @@ notable changes.',
     public function providerFiles()
     {
         return [
-            ['release_content_1'],
-            ['release_content_2'],
+            ['release_content_keepachangelog_0.3.0'],
+            ['release_content_keepachangelog_0.0.4'],
             ['release_content_hlibsass_0.1.2.0'],
         ];
     }

@@ -51,7 +51,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function providerReleaseCount()
     {
         return [
-            ['changelog_1', 12],
+            ['changelog_keepachangelog', 12],
             ['changelog_hlibsass', 8],
         ];
     }
@@ -59,7 +59,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function providerRelease()
     {
         return [
-            ['changelog_1', '0.0.8'],
+            ['changelog_keepachangelog', '0.0.8'],
             ['changelog_hlibsass', '0.1.1.1'],
         ];
     }
@@ -68,7 +68,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                'changelog_1',
+                'changelog_keepachangelog',
                 [
                     'Unreleased',
                     '0.3.0',
