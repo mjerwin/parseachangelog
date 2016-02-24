@@ -1,0 +1,1 @@
+{"version":"0.1.2.0","date":"2015-06-01","added":["Bindings to `sass_string_is_quoted`, `sass_string_set_quoted` and\n  `sass_make_qstring`."],"changed":["libsass @ 3672661 is used."],"deprecated":[],"removed":[],"fixed":["Link to compare in this changelog."],"security":[]}
