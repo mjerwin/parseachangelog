@@ -35,7 +35,7 @@ foreach($releases as $release)
 ```
 
 ### Methods
-###### getVersion()
+##### getVersion()
 Get the version number of the release e.g. 0.2.0
 
 ##### getDate()
