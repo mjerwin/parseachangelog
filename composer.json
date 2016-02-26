@@ -2,6 +2,7 @@
   "name": "mjerwin/parseachangelog",
   "description": "Change log parser based on http://keepachangelog.com/",
   "type": "library",
+  "license": "MIT",
   "require": {
     "erusev/parsedown": "^1.6"
   },
