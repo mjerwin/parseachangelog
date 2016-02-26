@@ -81,7 +81,7 @@ class Release
     }
 
     /**
-     * @param $type
+     * @param string $type
      *
      * @return array
      */
@@ -203,7 +203,7 @@ class Release
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     private function getMessageTypes()
     {
