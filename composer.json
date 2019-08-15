@@ -21,5 +21,8 @@
       "name": "Matthew Erwin",
       "email": "m@tthewerwin.com"
     }
-  ]
+  ],
+  "conflict": {
+    "phpunit/php-timer": ">=2"
+  }
 }
