@@ -34,7 +34,11 @@ class Reader
             {
                 $start = key($headings);
                 next($headings);
-                $end = key($headings) - 1;
+                $end = key($headings);
+
+                if ($end) {
+                    $end -= $start;
+                }
 
                 $release_content = array_slice($this->content, $start, $end);
 
